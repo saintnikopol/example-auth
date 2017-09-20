@@ -10,18 +10,13 @@
 import React from 'react';
 import { Segment, Grid, Button, Form, Header } from 'semantic-ui-react';
 
-// GraphQL connector
-import { graphql } from 'react-apollo';
 
 /* App */
-
-// GraphQL query
-import sessionQuery from 'src/gql/queries/session.gql';
 
 // ----------------------
 
 const User = props => {
-  const user = (props.data && props.data.session && props.data.session.user) || {
+  const user = (props.user) || {
     id: '',
     email: '',
     firstName: '',
@@ -87,4 +82,4 @@ const User = props => {
   );
 };
 
-export default graphql(sessionQuery)(User);
+export default User;

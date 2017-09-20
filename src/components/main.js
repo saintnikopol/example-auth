@@ -31,7 +31,7 @@ import sessionQuery from 'src/gql/queries/session.gql';
 
 // ----------------------
 
- class MainComponent extends React.Component {
+class MainComponent extends React.Component {
   constructor(props) {
     super(props);
     const user = (props.data && props.data.session && props.data.session.user) || null;
@@ -47,7 +47,7 @@ import sessionQuery from 'src/gql/queries/session.gql';
         <Header />
         <Login />
         <Register />
-        <User />
+        <User user={(this.props.data && this.props.data.session && this.props.data.session.user) || null} />
         <Users />
       </Grid>
     );

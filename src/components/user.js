@@ -50,11 +50,6 @@ const User = props => {
       <Grid.Column>
         <Segment color="violet">
           <Header>Logged in details</Header>
-          <p>
-            This data is pulled back from the GraphQL server using the JWT token that&rsquo;s
-            stored in <em>localStorage</em> or in the <em>jwt</em> cookie that&rsquo;s sent
-            to the server. Custom middleware handle passing the JWT to our GraphQL request.
-          </p>
           <Form>
             {fields.map(field => (
               <Form.Input
@@ -64,17 +59,40 @@ const User = props => {
                 label={field.label}
                 value={field.value} />
             ))}
+
+          </Form>
+        </Segment>
+        <Segment >
+          <Form>
+
+            <Form.Input
+              key="passwordCurrent"
+              name="passwordCurrent"
+              label="Current Password"
+              type="password"
+            />
+            <Form.Input
+              key="password"
+              name="password"
+              label="Password"
+              type="password"
+            />
+            <Form.Input
+              key="passwordConfirm"
+              name="passwordConfirm"
+              label="Password Confirmation"
+              type="password"
+            />
+
             <Button.Group>
               <Button
                 type="submit"
-                positive>Update</Button>
+                positive>Set new Password</Button>
               <Button.Or text="or" />
               <Button
                 type="button"
-                onClick={this.clear}
                 negative>Clear</Button>
             </Button.Group>
-
           </Form>
         </Segment>
       </Grid.Column>

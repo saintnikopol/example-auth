@@ -8,7 +8,7 @@ import React from 'react';
 
 // Use the Semantic UI React framework (https://react.semantic-ui.com)
 // to get some nicely styled components
-import { Grid } from 'semantic-ui-react';
+import { Grid, Segment, Button } from 'semantic-ui-react';
 
 /* App */
 
@@ -38,16 +38,59 @@ class MainComponent extends React.Component {
     this.state = {
       // form: 'login' // 'register' |
       user,
+      isLogin: true,
     };
+  }
+
+  componentWillReceiveProps = nextProps => {
+    const newUser = (nextProps.data && nextProps.data.session && nextProps.data.session.user) || null;
+    if (!(newUser === this.user)) {
+      console.log('user === ', newUser);
+      this.setState(Object.assign({}, this.state, { user: newUser }));
+    }
+  }
+
+  setFormLogin = () => {
+    this.setState(Object.assign({}, this.state, {isLogin: true, isRegister: false }));
+  }
+
+  setFormRegister = () => {
+    this.setState(Object.assign({}, this.state, {isLogin: false, isRegister: true }));
+  }
+
+  logout = () => {
+    window.localStorage.setItem('reactQLJWT', '');
+    this.setState({ isLogin: true, isRegister: false, user: null });
+    console.log('logout');
   }
 
   render() {
     return (
       <Grid className={css.main} padded>
         <Header />
-        <Login />
-        <Register />
-        <User user={(this.props.data && this.props.data.session && this.props.data.session.user) || null} />
+        <Grid.Row>
+          <Grid.Column>
+            <Segment >
+              <Button.Group>
+                {!this.state.user && this.state.isLogin ? <Button
+                  type="button"
+                  onClick={this.setFormRegister}
+                  positive>Show Registration Form</Button> : ''}
+                {!this.state.user && this.state.isRegister ? <Button
+                  type="button"
+                  onClick={this.setFormLogin}
+                  negative>Show Login Form</Button> : ''}
+                {this.state.user ? <Button
+                  type="button"
+                  onClick={this.logout}
+                  negative>Logout</Button> : ''}
+              </Button.Group>
+            </Segment>
+          </Grid.Column>
+        </Grid.Row>
+        {this.state.user ? <User user={this.state.user || null} /> : '' }
+        {!this.state.user && this.state.isLogin ? <Login /> : ''}
+        {!this.state.user && this.state.isRegister ? <Register /> : ''}
         <Users />
       </Grid>
     );

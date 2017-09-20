@@ -21,6 +21,7 @@ import { User } from 'src/db/user';
 // GraphQL
 import {
   UserType,
+  // UserResponseType,
   createUserMutation,
 } from './user';
 

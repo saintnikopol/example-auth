@@ -8,7 +8,7 @@
 
 // React
 import React from 'react';
-import { Segment, Grid, Form, Header } from 'semantic-ui-react';
+import { Segment, Grid, Button, Form, Header } from 'semantic-ui-react';
 
 // GraphQL connector
 import { graphql } from 'react-apollo';
@@ -69,6 +69,17 @@ const User = props => {
                 label={field.label}
                 value={field.value} />
             ))}
+            <Button.Group>
+              <Button
+                type="submit"
+                positive>Update</Button>
+              <Button.Or text="or" />
+              <Button
+                type="button"
+                onClick={this.clear}
+                negative>Clear</Button>
+            </Button.Group>
+
           </Form>
         </Segment>
       </Grid.Column>
